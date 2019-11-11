@@ -1,5 +1,6 @@
 package com.revature.eval;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -14,7 +15,14 @@ public class EvaluationService {
 	 */
 	public String reverse(String string) {
 		// TODO Write an implementation for this method declaration
-		return null;
+		if (string == null) return null;
+		
+		String result = "";
+		
+		for (int i = string.length() - 1; i >= 0; i--) {
+			result += string.charAt(i);
+		}
+		return result;
 	}
 
 	
@@ -28,7 +36,15 @@ public class EvaluationService {
 	 */
 	public String acronym(String phrase) {
 		// TODO Write an implementation for this method declaration
-		return null;
+		if (phrase == null) return null;
+
+		String result = "";
+		
+		String[] arr = phrase.split("\\s|-");
+		for (int i = 0; i < arr.length; i++) {
+			result += arr[i].charAt(0);
+		}
+		return result.toUpperCase();
 	}
 	
 	
@@ -49,7 +65,29 @@ public class EvaluationService {
 	 */
 	public int getScrabbleScore(String string) {
 		// TODO Write an implementation for this method declaration
-		return 0;
+		int result = 0;
+		
+		for (int i = 0; i < string.length(); i++) {
+			
+			String s = string.substring(i, i+1);
+			
+			if (s.matches("(?i)a|e|i|o|u|l|n|r|s|t")) {
+				result += 1;
+			} else if (s.matches("(?i)d|g")) {
+				result += 2;
+			} else if (s.matches("(?i)b|c|m|p")) {
+				result += 3;
+			} else if (s.matches("(?i)f|h|v|w|y")) {
+				result += 4;
+			} else if (s.matches("(?i)k")) {
+				result += 5;
+			} else if (s.matches("(?i)j|x")) {
+				result += 8;
+			} else if (s.matches("(?i)q|z")) {
+				result += 10;
+			}
+		}
+		return result;
 	}
 	
 	
@@ -64,7 +102,20 @@ public class EvaluationService {
 	 */
 	public Map<String, Integer> wordCount(String string) {
 		// TODO Write an implementation for this method declaration
-		return null;
+		String[] arr = string.split("\\s|,\n|,");
+		HashMap<String, Integer> wordMap = new HashMap<> ();
+		
+		for (String str: arr) {
+			if (wordMap.containsKey(str)) {
+				
+				int count = wordMap.get(str);
+				wordMap.put(str, count+1);
+				
+			} else {
+				wordMap.put(str, 1);
+			}
+		}
+		return wordMap;
 	}
 	
 	/**
