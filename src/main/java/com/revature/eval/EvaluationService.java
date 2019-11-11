@@ -109,7 +109,7 @@ public class EvaluationService {
 			if (wordMap.containsKey(str)) {
 				
 				int count = wordMap.get(str);
-				wordMap.put(str, count+1);
+				wordMap.put(str, ++count);
 				
 			} else {
 				wordMap.put(str, 1);
@@ -158,7 +158,36 @@ public class EvaluationService {
 
 		public int indexOf(T t) {
 			// TODO Write an implementation for this method declaration
-			return 0;
+			int left = 0;
+			int right = sortedList.size();
+			int mid = (left + right)/2;
+			
+			while (left < right) {
+				
+				T current = sortedList.get(mid);
+				
+				if (comparator(current, t) == 0) {
+					return mid;
+				} // else if (t < current) {
+				else if (comparator(current, t) > 0) {
+					right = mid;
+				} else {
+					left = mid;
+				}
+				
+				mid = (left + right)/2;
+			}
+			return -1;
+		}
+		
+		public int comparator(T t1, T t2) {
+			if (t1 instanceof Number) {
+				return Integer.parseInt(t1.toString()) - Integer.parseInt(t2.toString());
+			} else if (t1 instanceof String) {
+				return t1.toString().compareTo(t2.toString());
+			}
+			
+			return -1;
 		}
 
 		public BinarySearch(List<T> sortedList) {
